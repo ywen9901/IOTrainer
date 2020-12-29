@@ -1,3 +1,9 @@
 # iot_final_project
 
-<h3>Prerequisites</h3>
+## Hardware
+* Raspberry pi 3
+* Pi Camera
+
+## Dependencies
+* Python 3
+* OpenVINO
