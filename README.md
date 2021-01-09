@@ -7,11 +7,17 @@
 
 ## Dependencies
 * Python 3
-* OpenCV --[Installation reference](https://medium.com/@lin7lic/%E5%9C%A8raspberry-pi-3-%E5%AE%89%E8%A3%9Dpython-3-opencv-34c9740d78e4)
-* OpenPose
+* OpenCV
 
 ## Implementation
-0.
+0. Prepare OpenCV and jupyter notebook
+
+## Configuration between Pi and your computer
+1. Find your pi ip
+```
+$ ip addr
+```
+The response would be like the picture below:
+
 
 ## Reference
-[A 2019 guide to Human Pose Estimation with Deep Learning](https://nanonets.com/blog/human-pose-estimation-2d-guide/)
