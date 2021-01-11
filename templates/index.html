@@ -1,177 +1,196 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-.navbar {
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin: auto;
-  background-color: black;
-  opacity:0.6;
-}
+    .navbar {
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      margin: auto;
+      background-color: black;
+      opacity: 0.6;
+    }
 
-.navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px; 
-}
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
 
-.navbar a:hover {
+    .navbar a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
 
-}
-
-.navbar a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.main {
-  padding: 16px;
-  margin-bottom: 30px;
-}
+    .main {
+      padding: 16px;
+      margin-bottom: 30px;
+    }
 
 
-.camera-movement{ 
-  float: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+    .camera-movement {
+      float: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
-.lights-button{
-	float: right;
-}
+    .lights-button {
+      float: right;
+    }
 
-i.fa {
-  display: inline-block;
-  border-radius: 60px;
-  box-shadow: 0px 0px 2px #888;
-  padding: 0.5em 0.6em;
-  
+    i.fa {
+      display: inline-block;
+      border-radius: 60px;
+      box-shadow: 0px 0px 2px #888;
+      padding: 0.5em 0.6em;
+    }
 
-}
+    img {
+      margin-left: auto;
+      margin-right: auto;
+      width: 800px;
+      height: 480px;
+    }
 
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 35%
-}
+    button {
+      background-color: Transparent;
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+    }
 
-button {
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-	
-//CSS
-.camera-bg {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
+    .poseSelect {
+      float: right;
+      margin-top: 15px;
+      margin-right: 25px;
+    }
 
-  /* Preserve aspet ratio */
-  min-width: 100%;
-  min-height: 100%;
+    select {
+      border: none;
+      border-bottom: 3px solid white;
+      color: white;
+      background-color: black;
+      font-size: 20px;
+      padding: 10px;
+      line-height: 100%;
+    }
 
-    /* Full height */
-  height: 100%;
+    .camera-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
-
-.top-right-logo {
-  position: absolute;
-  top: 3%;
-  left: 2%;
-  font-size: 38px;
-  color: white;
-  opacity: 0.5;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: black;
-}
+      width: 800px;
+      height: 480px;
 
 
-</style>
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 
-<title>Make - PiStream</title>
+<title>Pose Esitmation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
 
-<div class="main" id="newpost">
-  <img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">
-  <!--<img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="https://www.psdbox.com/wp-content/uploads/2011/01/security-camera-photoshop-effect.jpg">-->
-     
-</div>
-
-  <div class="top-right-logo">
-  	<a></a>Raspberry Pi - Camera Stream </a>
+  <div class="main" id="newpost">
+    <img class="camera-b flex" style="background-attachment: fixed; position: relative ; top: 80px;" id="bg"
+      class="center" src="{{ url_for('shoulder_press') }}">
   </div>
 
-
-<div class="navbar">
+  <div class="navbar">
 
     <div class="ignoreCall">
-          <a id=decline class="but_def">
-              <button id="button"> 
-                  <i style="background: red; color: white;" class="fa fa-times fa-2x" aria-hidden="true"></i>
-              </button>
-         </a>       
+      <a id=decline class="but_def">
+        <button id="button">
+          <i style="background: red; color: white;" class="fa fa-times fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
     </div>
 
-</div>
+    <div class="poseSelect">
+      <form>
+        <select id="pose">
+          <option value="shoulder_press">Shoulder Press</option>
+          <option value="chest_press">Chest Press</option>
+          <option value="plank">Plank</option>
+        </select>
+      </form>
+    </div>
 
+  </div>
 
-    
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
 
-<script type="text/javascript">
-  
-var button = document.getElementById('button');
+    var button = document.getElementById('button');
 
-button.onclick = function() {
-    var div = document.getElementById('newpost');
-    if (div.style.display !== 'none') {
+    button.onclick = function () {
+      var div = document.getElementById('newpost');
+      if (div.style.display !== 'none') {
         div.style.display = 'none';
-    }
-    else {
+      }
+      else {
         div.style.display = 'block';
+      }
+    };
+
+    var pose = document.getElementById('pose');
+    pose.addEventListener("change", swapPage);
+
+    function swapPage() {
+      poseValue = pose.value;
+      img = document.getElementById('bg')
+      if (poseValue == "shoulder_press") {
+        img.setAttribute("src", "{{ url_for('shoulder_press') }}");
+      }
+      else if (poseValue == "chest_press") {
+        img.setAttribute("src", "{{ url_for('chest_press') }}");
+      }
+      else if (poseValue == "plank") {
+        img.setAttribute("src", "{{ url_for('plank') }}");
+      }
     }
-};
-   
-</script>
+
+  </script>
 
 </body>
-</html>
 
+</html>

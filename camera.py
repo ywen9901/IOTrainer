@@ -1,6 +1,6 @@
-#Modified by smartbuilds.io
-#Date: 27.09.20
-#Desc: This scrtipt script..
+# Modified by smartbuilds.io
+# Date: 27.09.20
+# Desc: This scrtipt script..
 
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -9,9 +9,10 @@ import imutils
 import time
 import numpy as np
 
+
 net = cv.dnn.readNetFromTensorflow("graph_opt.pb")
-inWidth = 168
-inHeight = 168
+inWidth = 180
+inHeight = 180
 thr = 0.2
 
 BODY_PARTS = {"Nose": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
@@ -28,7 +29,7 @@ POSE_PAIRS = [["Neck", "RShoulder"], ["Neck", "LShoulder"], ["RShoulder", "RElbo
     ["REye", "REar"], ["Nose", "LEye"], ["LEye", "LEar"]]
 
 
-def pose_estimation(frame):
+def pose_estimation_shoulder_press(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
     net.setInput(cv.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight),
@@ -61,26 +62,153 @@ def pose_estimation(frame):
         if points[idFrom] and points[idTo]:
             cv.line(frame, points[idFrom], points[idTo], (0, 255, 0), 3)
             cv.ellipse(frame, points[idFrom], (3, 3),
-                       0, 0, 360, (0, 0, 255), cv.FILLED)
+                       0, 0, 360, (0, 255, 255), cv.FILLED)
             cv.ellipse(frame, points[idTo], (3, 3), 0,
-                       0, 360, (0, 0, 255), cv.FILLED)
+                       0, 360, (0, 255, 255), cv.FILLED)
 
     t, _ = net.getPerfProfile()
     freq = cv.getTickFrequency() / 1000
-    
+
     if points[3] and points[6]:
         distance = points[3][1]-points[6][1]
         if abs(distance) > 50:
-            cv.putText(frame, "Error", (10, 80), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-        
-    cv.putText(frame, '%.2fms' % (t / freq), (10, 20),
-               cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
+            cv.putText(frame, "Error", (10, 80),
+                       cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            if points[3][1] > points[6][1]:
+                cv.ellipse(frame, (points[6][0], points[3][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+            else:
+                cv.ellipse(frame, (points[3][0], points[6][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
 
     return frame
 
+
+def pose_estimation_chest_press(frame):
+    frameWidth = frame.shape[1]
+    frameHeight = frame.shape[0]
+    net.setInput(cv.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight),
+                                      (127.5, 127.5, 127.5), swapRB=True, crop=False))
+
+    out = net.forward()
+    # MobileNet output [1, 57, -1, -1], we only need the first 19 elements
+    out = out[:, :19, :, :]
+
+    assert(len(BODY_PARTS) == out.shape[1])
+
+    points = []
+    for i in range(len(BODY_PARTS)):
+        heatMap = out[0, i, :, :]
+
+        _, conf, _, point = cv.minMaxLoc(heatMap)
+        x = (frameWidth * point[0]) / out.shape[3]
+        y = (frameHeight * point[1]) / out.shape[2]
+        points.append((int(x), int(y)) if conf > thr else None)
+
+    for pair in POSE_PAIRS:
+        partFrom = pair[0]
+        partTo = pair[1]
+        assert(partFrom in BODY_PARTS)
+        assert(partTo in BODY_PARTS)
+
+        idFrom = BODY_PARTS[partFrom]
+        idTo = BODY_PARTS[partTo]
+
+        if points[idFrom] and points[idTo]:
+            cv.line(frame, points[idFrom], points[idTo], (0, 255, 0), 3)
+            cv.ellipse(frame, points[idFrom], (3, 3),
+                       0, 0, 360, (0, 255, 255), cv.FILLED)
+            cv.ellipse(frame, points[idTo], (3, 3), 0,
+                       0, 360, (0, 255, 255), cv.FILLED)
+
+    t, _ = net.getPerfProfile()
+    freq = cv.getTickFrequency() / 1000
+
+    if points[3] and points[6]:
+        distance = points[3][1]-points[6][1]
+        if abs(distance) > 50:
+            cv.putText(frame, "Error", (10, 80),
+                       cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            if points[3][1] > points[6][1]:
+                cv.ellipse(frame, (points[6][0], points[3][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+            else:
+                cv.ellipse(frame, (points[3][0], points[6][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+
+    return frame
+
+
+def pose_estimation_plank(frame):
+    frameWidth = frame.shape[1]
+    frameHeight = frame.shape[0]
+    net.setInput(cv.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight),
+                                      (127.5, 127.5, 127.5), swapRB=True, crop=False))
+
+    out = net.forward()
+    # MobileNet output [1, 57, -1, -1], we only need the first 19 elements
+    out = out[:, :19, :, :]
+
+    assert(len(BODY_PARTS) == out.shape[1])
+
+    points = []
+    for i in range(len(BODY_PARTS)):
+        heatMap = out[0, i, :, :]
+
+        _, conf, _, point = cv.minMaxLoc(heatMap)
+        x = (frameWidth * point[0]) / out.shape[3]
+        y = (frameHeight * point[1]) / out.shape[2]
+        points.append((int(x), int(y)) if conf > thr else None)
+
+    for pair in POSE_PAIRS:
+        partFrom = pair[0]
+        partTo = pair[1]
+        assert(partFrom in BODY_PARTS)
+        assert(partTo in BODY_PARTS)
+
+        idFrom = BODY_PARTS[partFrom]
+        idTo = BODY_PARTS[partTo]
+
+        if points[idFrom] and points[idTo]:
+            cv.line(frame, points[idFrom], points[idTo], (0, 255, 0), 3)
+            cv.ellipse(frame, points[idFrom], (3, 3),
+                       0, 0, 360, (0, 255, 255), cv.FILLED)
+            cv.ellipse(frame, points[idTo], (3, 3), 0,
+                       0, 360, (0, 255, 255), cv.FILLED)
+
+    t, _ = net.getPerfProfile()
+    freq = cv.getTickFrequency() / 1000
+
+    if points[2] and points[8]:
+        distance = points[2][1]-points[8][1]
+        if abs(distance) > 50:
+            cv.putText(frame, "Error", (10, 80),
+                       cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            if points[2][1] > points[8][1]:
+                cv.ellipse(frame, (points[8][0], points[2][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+            else:
+                cv.ellipse(frame, (points[2][0], points[8][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+    elif points[5] and points[11]:
+        distance = points[5][1]-points[11][1]
+        if abs(distance) > 50:
+            cv.putText(frame, "Error", (10, 80),
+                       cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            if points[5][1] > points[11][1]:
+                cv.ellipse(frame, (points[11][0], points[5][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+            else:
+                cv.ellipse(frame, (points[5][0], points[11][1]), (5, 5),
+                           0, 0, 360, (0, 0, 255), cv.FILLED)
+
+    return frame
+
+
 class VideoCamera(object):
     vs = PiVideoStream().start()
-    def __init__(self, flip = False):
+
+    def __init__(self, flip=False):
         self.flip = flip
         time.sleep(2.0)
 
@@ -92,8 +220,20 @@ class VideoCamera(object):
             return np.flip(frame, 0)
         return frame
 
-    def get_frame(self):
+    def get_frame_shoulder_press(self):
         frame = self.flip_if_needed(self.vs.read())
-        frame = pose_estimation(frame)
+        frame = pose_estimation_shoulder_press(frame)
+        ret, jpeg = cv.imencode('.jpg', frame)
+        return jpeg.tobytes()
+
+    def get_frame_chest_press(self):
+        frame = self.flip_if_needed(self.vs.read())
+        frame = pose_estimation_chest_press(frame)
+        ret, jpeg = cv.imencode('.jpg', frame)
+        return jpeg.tobytes()
+
+    def get_frame_plank(self):
+        frame = self.flip_if_needed(self.vs.read())
+        frame = pose_estimation_plank(frame)
         ret, jpeg = cv.imencode('.jpg', frame)
         return jpeg.tobytes()
