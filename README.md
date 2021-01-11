@@ -35,7 +35,9 @@ raspi ip查詢方法如下
 $ ip addr
 ```
 會得到如下圖的畫面
+
 ![](https://github.com/yww1327/iot_final_project/blob/main/README_pic/ip_addr.PNG)
+
 "inet"後的數字字串就是raspi的ip，以此圖片為例，raspi ip為172.20.10.5
 
 
