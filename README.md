@@ -14,6 +14,10 @@
 2. Run terminal input ```$ python test.py```
 
 
+## Code Review
+https://github.com/yww1327/iot_final_project/blob/main/test_video.py
+
+
 ## To Be Strengthened
 ### Slow operation speed
 [Streaming: OpenCV v.s. PiCamera](https://blog.xuite.net/jblabs/blog/463506239-%5B%E8%BB%9F%E9%AB%94%5D+%E4%BD%BF%E7%94%A8+Raspberry+Pi+Camera+Module+%2B+Python+%2B+OpenCV+%E9%80%B2%E8%A1%8C%E5%8B%95%E6%85%8B%E8%87%89%E9%83%A8%E8%BE%A8%E8%AD%98)
@@ -21,7 +25,6 @@
 僅進行streaming的時候延遲不嚴重，但是run過estimation function之後延遲大約會是2至3秒
 目前是以降低```test_video.py```中```inWidth```和```inHeight```變數來降低延遲的嚴重程度，但降低的同時也會影響準確率，以目前所設定的180再下降就會有辨識錯誤的問題
 推測如果以picamera本身start_preview或start_recording取代cv.imshow()，再以addLayout的方式在streaming video上疊上skeletons，可能可以加快畫面render的速度
-
 
 ### Network connection
 [PiCamera Web Streaming](https://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming)
