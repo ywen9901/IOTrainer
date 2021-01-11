@@ -11,7 +11,7 @@
 ## Implementation
 0. Set up your raspi and picamera
 1. Clone this repo to your raspi
-2. Run terminal input ```$ python test.py```
+2. Run terminal input ```$ python main.py```
 
 
 ## Code Review
