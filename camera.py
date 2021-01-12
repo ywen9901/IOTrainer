@@ -1,7 +1,3 @@
-# Modified by smartbuilds.io
-# Date: 27.09.20
-# Desc: This scrtipt script..
-
 import cv2 as cv
 import matplotlib.pyplot as plt
 from imutils.video.pivideostream import PiVideoStream
@@ -36,7 +32,6 @@ def pose_estimation_shoulder_press(frame):
                                       (127.5, 127.5, 127.5), swapRB=True, crop=False))
 
     out = net.forward()
-    # MobileNet output [1, 57, -1, -1], we only need the first 19 elements
     out = out[:, :19, :, :]
 
     assert(len(BODY_PARTS) == out.shape[1])
@@ -91,7 +86,6 @@ def pose_estimation_chest_press(frame):
                                       (127.5, 127.5, 127.5), swapRB=True, crop=False))
 
     out = net.forward()
-    # MobileNet output [1, 57, -1, -1], we only need the first 19 elements
     out = out[:, :19, :, :]
 
     assert(len(BODY_PARTS) == out.shape[1])
@@ -146,7 +140,6 @@ def pose_estimation_plank(frame):
                                       (127.5, 127.5, 127.5), swapRB=True, crop=False))
 
     out = net.forward()
-    # MobileNet output [1, 57, -1, -1], we only need the first 19 elements
     out = out[:, :19, :, :]
 
     assert(len(BODY_PARTS) == out.shape[1])

@@ -1,8 +1,3 @@
-# Modified by smartbuilds.io
-# Date: 27.09.20
-# Desc: This web application serves a motion JPEG stream
-# main.py
-# import the necessary packages
 from flask import Flask, render_template, Response, request
 from camera import VideoCamera
 import time
@@ -12,30 +7,31 @@ import cv2 as cv
 from imutils.video.pivideostream import PiVideoStream
 import imutils
 
-pi_camera = VideoCamera(flip=False)  # flip pi camera if upside down.
+pi_camera = VideoCamera(flip=False)
 
 
-# App Globals (do not edit)
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # you can customze index.html here
+    return render_template('index.html')
+
 
 def gen_shoulder_press(camera):
-    # get camera frame
     while True:
         frame = camera.get_frame_shoulder_press()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-        
+
+
 def gen_chest_press(camera):
     while True:
         frame = camera.get_frame_chest_press()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-        
+
+
 def gen_plank(camera):
     while True:
         frame = camera.get_frame_plank()
