@@ -1,12 +1,18 @@
-# iot_final_project
+# IOTrainer
+IOTrainer is an application working on edge devices to check poses during your workout process. It contains the functions of drawing pose skeletons and showing the right position point of the workout poses. With PiCamera, IOTrainer could stream in the browser. Other devices can browse the webpage by connecting on same LAN. (The method will be mentioned below.)
 
 ## Hardware
-* Raspberry pi 3 ([Set Up Manual](https://github.com/yww1327/iot_final_project/blob/main/setupManual.pdf)
+* Raspberry pi 3 ([Set Up Manual](https://github.com/yww1327/iot_final_project/blob/main/readme/setupManual.pdf))
 * Pi Camera
 
 ## Dependencies
 * Python 3
 * OpenCV
+
+## Demo
+| Show Skeletons When Human Body Detected | Show Error and Right Pose Point |
+| ---- | ---- |
+|![](https://github.com/yww1327/iot_final_project/blob/main/readme/skeletons.png?raw=true)|![](https://github.com/yww1327/iot_final_project/blob/main/readme/error.png?raw=true)
 
 ## Implementation
 0. Set up your raspi and picamera
@@ -39,7 +45,7 @@ $ ip addr
 ```
 會得到如下圖的畫面
 
-![](https://github.com/yww1327/iot_final_project/blob/main/README_pic/ip_addr.PNG)
+![](https://github.com/yww1327/iot_final_project/blob/main/readme/ip_addr.PNG?raw=true)
 
 "inet"後的數字字串就是raspi的ip，以此圖片為例，raspi ip為172.20.10.5
 
