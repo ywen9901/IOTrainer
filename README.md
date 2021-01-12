@@ -1,5 +1,5 @@
 # IOTrainer
-IOTrainer is an application working on edge devices to check poses during your workout process. It contains the functions of drawing pose skeletons and showing the right position point of the workout poses. With PiCamera, IOTrainer could stream in the browser. Other devices can browse the webpage by connecting on same LAN. (The method will be mentioned below.)
+IOTrainer is an application working on edge devices to check poses during your workout process. It contains the functions of drawing pose skeletons and showing the right position point of the workout poses. With PiCamera, IOTrainer could stream in the browser. Other devices can browse the webpage by connecting on same LAN. (The method will be mentioned [below](https://github.com/yww1327/IOTrainer#network-connection).)
 
 ## Hardware required
 * Raspberry pi 3 ([Set Up Manual](https://github.com/yww1327/IOTrainer/blob/main/readme/setupManual.pdf))
@@ -15,7 +15,7 @@ IOTrainer is an application working on edge devices to check poses during your w
 | ---- | ---- |
 |![](https://github.com/yww1327/IOTrainer/blob/main/readme/skeletons.png?raw=true)|![](https://github.com/yww1327/IOTrainer/blob/main/readme/error.png?raw=true)
 
-Check video demo [here](google.com)! (**NOTE**: The delay in streaming is normal. The possible solution will be mentioned below.)
+Check video demo [here](google.com)! (**NOTE**: The delay in streaming is normal. The possible solution will be mentioned [below](https://github.com/yww1327/IOTrainer#slow-operation-speed).)
 
 ## Implementation
 
