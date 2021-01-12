@@ -2,26 +2,22 @@
 IOTrainer is an application working on edge devices to check poses during your workout process. It contains the functions of drawing pose skeletons and showing the right position point of the workout poses. With PiCamera, IOTrainer could stream in the browser. Other devices can browse the webpage by connecting on same LAN. (The method will be mentioned below.)
 
 ## Hardware required
-* Raspberry pi 3 ([Set Up Manual](https://github.com/yww1327/iot_final_project/blob/main/readme/setupManual.pdf))
+* Raspberry pi 3 ([Set Up Manual](https://github.com/yww1327/IOTrainer/blob/main/readme/setupManual.pdf))
 * Pi Camera
 
 ## Dependencies
 * Python 3
 * OpenCV (>3.4.1 to use the function ```cv2.dnn.readNetFromTensorflow()```)
 * imutils (for video streaming)
+* Flask (to build webpage)
 ## Demo
 | Show Skeletons When Human Body Detected | Show Error and Right Pose Point |
 | ---- | ---- |
-|![](https://github.com/yww1327/iot_final_project/blob/main/readme/skeletons.png?raw=true)|![](https://github.com/yww1327/iot_final_project/blob/main/readme/error.png?raw=true)
+|![](https://github.com/yww1327/IOTrainer/blob/main/readme/skeletons.png?raw=true)|![](https://github.com/yww1327/IOTrainer/blob/main/readme/error.png?raw=true)
+
+Check video demo [here](google.com)! (**NOTE**: The delay in streaming is normal. The possible solution will be mentioned below.)
 
 ## Implementation
-0. Set up your raspi and picamera
-1. Clone this repo to your raspi
-2. Run terminal input ```$ python main.py```
-
-
-## Code Review
-https://github.com/yww1327/iot_final_project/blob/main/test_video.py
 
 
 ## To Be Strengthened
