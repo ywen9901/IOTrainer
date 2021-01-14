@@ -136,6 +136,69 @@ Comparison (Different in FPS)
 | ---- | ---- |
 | ![](https://github.com/yww1327/IOTrainer/blob/main/readme/OpenCVwithGTK.gif) | ![](https://github.com/yww1327/IOTrainer/blob/main/readme/OpenCVwithQT.gif) |
 
+
+## Code Review
+```graph_opt.pb``` The model weight trained by Tensorflow
+
+```main.py``` Contain functions of flask
+
+```camera.py``` Contain the function of estimation of poses and video streaming object
+
+```template/index.html``` The layout of the webpage
+
+
+I've added some comments on the documents. The following part will be the simple and brief explanation of the structure of my code.
+
+* Use Flask --```main.py``` line [14](https://github.com/yww1327/IOTrainer/blob/main/main.py#L14)
+
+```
+app = Flask(__name__)
+```
+
+* Routing --```main.py``` line [18](https://github.com/yww1327/IOTrainer/blob/main/main.py#L18), [44](https://github.com/yww1327/IOTrainer/blob/main/main.py#L44), [50](https://github.com/yww1327/IOTrainer/blob/main/main.py#L50), [56](https://github.com/yww1327/IOTrainer/blob/main/main.py#L56)
+
+> This is a way like create pages for the website. So the website will contain the addresses like
+
+> 0.0.0.0:5000/
+>
+> 0.0.0.0:5000/shoulder_press
+>
+> 0.0.0.0:5000/chest_press
+>
+> 0.0.0.0:5000/plank
+
+```
+@app.route('/')
+# define the function that will be called when the page rendered
+def index():
+    return render_template('index.html')		   
+```
+
+* Render layout --```main.py``` line [20](https://github.com/yww1327/IOTrainer/blob/main/main.py#L20)
+
+> After the function called, the layout will be rendered. **NOTE**: The ```html``` file should be store in a folder named templates which is in the same path as ```main.py```.
+
+```
+return render_template('index.html')
+```
+
+* Edit Host and Port --```main.py``` line [64](https://github.com/yww1327/IOTrainer/blob/main/main.py#L64)
+
+> 0.0.0.0 means all IPv4 address on local machine.
+```
+app.run(host='0.0.0.0', debug=False)
+```
+
+* Render Streaming Video --```index.html``` line [135](https://github.com/yww1327/IOTrainer/blob/af824f83ca0aff00c38043d5d3da6e6b999a50d2/templates/index.html#L135), [136](https://github.com/yww1327/IOTrainer/blob/af824f83ca0aff00c38043d5d3da6e6b999a50d2/templates/index.html#L136)
+
+> Since /shoulder_press define a function to get frames from the streaming video, using url_for to render the frames in img tag.
+
+```
+<img class="camera-b flex" style="background-attachment: fixed; position: relative ; top: 80px;" id="bg" class="center" src="{{ url_for('shoulder_press') }}">
+```
+
+
+
 ## Reference
 ### About Pose Estimation
 
