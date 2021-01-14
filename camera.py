@@ -6,16 +6,19 @@ import time
 import numpy as np
 
 
+# Load the model weight
 net = cv.dnn.readNetFromTensorflow("graph_opt.pb")
 inWidth = 180
 inHeight = 180
 thr = 0.2
 
+# List points of body parts
 BODY_PARTS = {"Nose": 0, "Neck": 1, "RShoulder": 2, "RElbow": 3, "RWrist": 4,
               "LShoulder": 5, "LElbow": 6, "LWrist": 7, "RHip": 8, "RKnee": 9,
               "RAnkle": 10, "LHip": 11, "LKnee": 12, "LAnkle": 13, "REye": 14,
               "LEye": 15, "REar": 16, "LEar": 17, "Background": 18}
 
+# Pair points for drawing skeletons
 POSE_PAIRS = [["Neck", "RShoulder"], ["Neck", "LShoulder"], ["RShoulder", "RElbow"],
               ["RElbow", "RWrist"], ["LShoulder", "LElbow"], ["LElbow", "LWrist"],
               ["Neck", "RHip"], ["RHip", "RKnee"], [
@@ -25,6 +28,7 @@ POSE_PAIRS = [["Neck", "RShoulder"], ["Neck", "LShoulder"], ["RShoulder", "RElbo
     ["REye", "REar"], ["Nose", "LEye"], ["LEye", "LEar"]]
 
 
+# Compare the heights(y) of user's elbows
 def pose_estimation_shoulder_press(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
@@ -79,6 +83,7 @@ def pose_estimation_shoulder_press(frame):
     return frame
 
 
+ # Compare the heights(y) of the user's elbows
 def pose_estimation_chest_press(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
@@ -133,6 +138,7 @@ def pose_estimation_chest_press(frame):
     return frame
 
 
+# Compare the heights(y) of user's shoulder and hip
 def pose_estimation_plank(frame):
     frameWidth = frame.shape[1]
     frameHeight = frame.shape[0]
@@ -198,6 +204,8 @@ def pose_estimation_plank(frame):
     return frame
 
 
+# Stream by PiCamera
+# Define the functions that can be called by the V
 class VideoCamera(object):
     vs = PiVideoStream().start()
 
