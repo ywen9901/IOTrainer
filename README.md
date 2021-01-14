@@ -130,10 +130,10 @@ pi@raspberrypi:~/opencv-4.1.0/build $ sudo install make
 pi@raspberrypi:~/opencv-4.1.0/build $ sudo ldconfig
 ```
 
-Comparison
-| Compile with GTK | Compile with QT |
+Comparison (Different in FPS)
+| Compile with GTK (About 0.5fps) | Compile with QT (About 1fps) |
 | ---- | ---- |
-|  |  |
+| ![](https://github.com/yww1327/IOTrainer/blob/main/readme/OpenCVwithGTK.gif) | ![](https://github.com/yww1327/IOTrainer/blob/main/readme/OpenCVwithQT.gif) |
 
 ## Reference
 ### About Pose Estimation
