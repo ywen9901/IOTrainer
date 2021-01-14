@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Response, request
+# import from camera.py
 from camera import VideoCamera
 import time
 import threading
@@ -13,6 +14,7 @@ pi_camera = VideoCamera(flip=False)
 app = Flask(__name__)
 
 
+# Route for index and render PiCamera streaming
 @app.route('/')
 def index():
     return render_template('index.html')
