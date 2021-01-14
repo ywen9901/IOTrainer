@@ -71,17 +71,17 @@ The number string after "inet" is your Pi ip address. In this case, the Pi ip ad
 Connect other devices in the same LAN that Pi is in and enter ```172.20.10.5:5000``` in address bar of your browser.
 
 ## OpenCV Installation Record
-I first installed OpenCV by pip.
+* I first installed OpenCV by pip.
 ```
 $ sudo pip3 install opencv-python
 ```
 However, when I ran my project with it, there was a severe delay in streaming. And I found [this solution](https://stackoverflow.com/questions/34276070/why-compile-opencv-with-qt) on stack overflow, which is compiling OpenCV with QT.
 
-I have tried to compile 3.2.0 version of OpenCV. There's a small problem came up, which is an error occured when running the command ```$ make -j4```. But this problem can be solved like [this](https://blog.csdn.net/qq_44357371/article/details/105966714). After compiling, it did work, but the function ```cv2.dnn.readNetFromTensorflow``` is not usable in this version. The function is availble in OpenCV 3.4.1+.
+* I have tried to compile 3.2.0 version of OpenCV. There's a small problem came up, which is an error occured when running the command ```$ make -j4```. But this problem can be solved like [this](https://blog.csdn.net/qq_44357371/article/details/105966714). After compiling, it did work, but the function ```cv2.dnn.readNetFromTensorflow``` is not usable in this version. The function is availble in OpenCV 3.4.1+.
 
-Then I tried 4.2.0 version, but it stuck when I run the command ```$ make -j4```, but I didn't find any solution to the problem.
+* Then I tried 4.2.0 version, but it stuck when I run the command ```$ make -j4```, but I didn't find any solution to the problem.
 
-Therefore I try 4.1.0 instead and succeed. The following steps are the way I compiled OpenCV 4.1.0 with QT by modifying the a few compiling steps [here](https://nancyyluu.blogspot.com/2017/12/raspberry-pi-opencvcontrib.html?fbclid=IwAR04es5w9Q44z1S-1ftq1_eWM-9EyT41oP0b8DH991P_87MF0ddEbGxG9PY):
+* Therefore I try 4.1.0 instead and succeed. The following steps are the way I compiled OpenCV 4.1.0 with QT by modifying the a few compiling steps [here](https://nancyyluu.blogspot.com/2017/12/raspberry-pi-opencvcontrib.html?fbclid=IwAR04es5w9Q44z1S-1ftq1_eWM-9EyT41oP0b8DH991P_87MF0ddEbGxG9PY):
 
 Install cmake and QT5
 ```
