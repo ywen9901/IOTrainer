@@ -130,6 +130,11 @@ pi@raspberrypi:~/opencv-4.1.0/build $ sudo install make
 pi@raspberrypi:~/opencv-4.1.0/build $ sudo ldconfig
 ```
 
+Comparison
+| Compile with GTK | Compile with QT |
+| ---- | ---- |
+|  |  |
+
 ## Reference
 ### About Pose Estimation
 
