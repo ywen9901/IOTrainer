@@ -106,7 +106,8 @@ pi@raspberrypi:~/opencv-4.1.0 $ cd build
 
 Make file (**NOTE**: FFMPEG is not available on Raspberry Pi)
 ```
-pi@raspberrypi:~/opencv-4.1.0/build $ cmake -D WITH_QT=ON	-D WITH_FFMPEG=OFF 
+pi@raspberrypi:~/opencv-4.1.0/build $ cmake -D WITH_QT=ON
+	-D WITH_FFMPEG=OFF 
 	-D CMAKE_BUILD_TYPE=RELEASE \
 	-D CMAKE_INSTALL_PREFIX=/usr/local \
 	-D BUILD_WITH_DEBUG_INFO=OFF \
