@@ -30,6 +30,8 @@ Check video demo [here](https://youtu.be/ZAnGCJuLjmA)!
 ## Deployment
 (**NOTE**: The delay in streaming could be severe due to the operation of OpenCV. The possible solutions will be listed [below](https://github.com/yww1327/IOTrainer#opencv-installation-record).)
 
+Check tutorial video [here](https://studio.youtube.com/video/0wJZhFzkVaE/edit)
+
 
 ### 0. Set up all dependencies
 
