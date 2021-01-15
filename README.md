@@ -6,7 +6,7 @@ IOTrainer is an application working on edge devices, such as Raspberry Pi, to ch
 | ---- | ---- |
 | ![](https://github.com/yww1327/IOTrainer/blob/main/readme/skeletons.png) | ![](https://github.com/yww1327/IOTrainer/blob/main/readme/error.png) |
 
-Check video demo [here](google.com)!
+Check video demo [here](https://github.com/yww1327/IOTrainer/blob/main/readme/demo.mp4)!
 
 ## Hardware Required
 * Raspberry Pi 3 (Check the setup manual [here](https://github.com/yww1327/IOTrainer/blob/main/readme/setupManual.pdf))
